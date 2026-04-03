@@ -4,8 +4,7 @@ pipeline {
         IMAGE_NAME = "udzy/train-app"
         TAG = "latest"
         DOCKER_REGISTRY = "udzy"
-        APP_PORT = "2000"
-        CONTAINER_PORT = "8080"
+        CONTAINER_PORT = "2000"
         CONTAINER_NAME = "tcont"
     }
     stages {
