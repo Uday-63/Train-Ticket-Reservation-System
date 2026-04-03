@@ -8,5 +8,5 @@ spec:
     app: train-app
   ports:
   - port: 80
-    targetPort: 2000
+    targetPort: 8080
     nodePort: 30007
