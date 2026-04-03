@@ -3,6 +3,10 @@ pipeline {
     environment {
         IMAGE_NAME = "udzy/train-app"
         TAG = "latest"
+        DOCKER_REGISTRY = "udzy"
+        APP_PORT = "2000"
+        CONTAINER_PORT = "8080"
+        CONTAINER_NAME = "tcont"
     }
     stages {
         stage('Git Checkout') {
@@ -53,15 +57,15 @@ pipeline {
                 sh 'docker push udzy/train-app:latest'
             }
         }
-        stage('Docker Run') {
-            steps {
-                sh '''
-                    docker stop tcont || true
-                    docker rm tcont || true
-                    docker run -d --name tcont -p 2000:8080 udzy/train-app:latest
-                '''
-            }
-        }
+       stage('Docker Run') {
+    steps {
+        sh '''
+            docker stop $CONTAINER_NAME || true
+            docker rm $CONTAINER_NAME || true
+            docker run -d --name $CONTAINER_NAME -p $APP_PORT:$CONTAINER_PORT $IMAGE_NAME:$TAG
+        '''
+    }
+}
         stage('Deploy to Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
