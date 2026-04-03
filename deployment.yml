@@ -16,4 +16,4 @@ spec:
       - name: train-container
         image: udzy/train-app:latest
         ports:
-        - containerPort: 2000
+        - containerPort: 8000
